@@ -35,6 +35,7 @@ public class ImageListAdapter extends ArrayAdapter {
         Picasso
                 .with(context)
                 .load("http://image.tmdb.org/t/p/w185/"+imageUrls.get(position).posterPath)
+                .placeholder(R.mipmap.ic_launcher)
                 .fit() // will explain later
                 .into((ImageView) convertView);
 
