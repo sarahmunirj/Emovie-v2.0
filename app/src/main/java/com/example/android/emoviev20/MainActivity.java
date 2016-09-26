@@ -1,19 +1,12 @@
 package com.example.android.emoviev20;
 
-import android.content.Intent;
-import android.media.Image;
+
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.Adapter;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,13 +21,14 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    GridView gridView = (GridView) findViewById(R.id.gridView);
-    ImageView poster = (ImageView) findViewById(R.id.image);
+    GridView gridView ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        gridView = (GridView) findViewById(R.id.gridView);
 
         FetchDataTask task = new FetchDataTask();
         task.execute();
@@ -75,9 +69,8 @@ public class MainActivity extends AppCompatActivity {
             BufferedReader reader = null;
 
             try {
-                // Construct the URL for the OpenWeatherMap query
-                // Possible parameters are avaiable at OWM's forecast API page, at
-                // http://openweathermap.org/API#forecast
+                // Construct the URL for the The Movie DB query
+
                 final String MOVIE_BASE_URL =
                         "http://api.themoviedb.org/3/movie/popular";
 
@@ -87,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
                 URL url = new URL(builtUri.toString());
 
-                // Create the request to OpenWeatherMap, and open the connection
+                // Create the request to themoviedb, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
@@ -116,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 movieJsonStr = buffer.toString();
             } catch (IOException e) {
                 Log.e("Movie", "Error " + e);
-                // If the code didn't successfully get the weather data, there's no point in attemping
+                // If the code didn't successfully get the movie data, there's no point in attemping
                 // to parse it.
                 return null;
             } finally {
