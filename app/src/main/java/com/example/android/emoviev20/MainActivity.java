@@ -1,11 +1,16 @@
 package com.example.android.emoviev20;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import org.json.JSONArray;
@@ -22,6 +27,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     GridView gridView ;
+    ArrayList<Movie> movieData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +39,17 @@ public class MainActivity extends AppCompatActivity {
         FetchDataTask task = new FetchDataTask();
         task.execute();
 
-//        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                                            @Override
-//                                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                                                Intent intent = new Intent(getApplicationContext(), GridItemDetail.class);
-//                                                startActivity(intent);
-//                                            }
-//                                        }
-//        );
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                            @Override
+                                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                                Intent intent = new Intent(getApplicationContext(), GridItemDetail.class);
+                                                Bundle bundle = new Bundle();
+                                                bundle.putSerializable("data",movieData.get(position));
+                                                intent.putExtras(bundle);
+                                                startActivity(intent);
+                                            }
+                                        }
+        );
 
     }
 
@@ -52,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(ArrayList<Movie> data) {
             super.onPostExecute(data);
-            gridView.setAdapter(new ImageListAdapter(getApplicationContext(), data));
+            gridView.setAdapter(new ImageListAdapter(getApplicationContext(), movieData));
         }
 
         @Override
@@ -62,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected ArrayList<Movie> doInBackground(Void... params) {
+            isOnline();
 
             // These two need to be declared outside the try/catch
             // so that they can be closed in the finally block.
@@ -135,10 +145,16 @@ public class MainActivity extends AppCompatActivity {
             // This will only happen if there was an error getting or parsing the forecast.
             return null;
         }
+        public boolean isOnline() {
+            ConnectivityManager cm =
+                    (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
+            return cm.getActiveNetworkInfo() != null &&
+                    cm.getActiveNetworkInfo().isConnectedOrConnecting();
+        }
         private ArrayList<Movie> getMovieDataFromJson(String movieJsonStr) throws JSONException {
 
-            ArrayList<Movie> posterPathData = new ArrayList<>();
+            movieData = new ArrayList<Movie>();
 
             JSONObject dataObject = new JSONObject(movieJsonStr);
 
@@ -151,13 +167,14 @@ public class MainActivity extends AppCompatActivity {
                 String movieName = element.getString("title");
                 String overview = element.getString("overview");
                 String releaseDate = element.getString("release_date");
+                String rating = element.getString("vote_average");
 
-                Movie m = new Movie(posterPath, movieName, overview, releaseDate);
+                Movie m = new Movie(posterPath, movieName, overview, releaseDate,rating);
 
-                posterPathData.add(i, m);
+                movieData.add(i, m);
             }
 
-            return posterPathData;
+            return movieData;
         }
     }
 }

@@ -10,11 +10,13 @@ public class Movie implements Serializable {
     String overview;
     String movieName;
     String releaseDate;
+    String rating;
 
-    public Movie (String posterPath,String movieName, String overview, String releaseDate){
+    public Movie (String posterPath,String movieName, String overview, String releaseDate, String rating){
         this.posterPath = posterPath;
         this.overview = overview;
         this.movieName = movieName;
         this.releaseDate= releaseDate;
+        this.rating=rating;
     }
 }

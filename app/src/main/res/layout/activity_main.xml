@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.android.emoviev20.MainActivity"
     android:id="@+id/gridView"
+    android:numColumns="2"
     >
 
 </GridView>
