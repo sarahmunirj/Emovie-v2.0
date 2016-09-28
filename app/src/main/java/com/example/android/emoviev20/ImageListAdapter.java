@@ -15,13 +15,13 @@ public class ImageListAdapter extends ArrayAdapter {
     private Context context;
     private LayoutInflater inflater;
 
-    private ArrayList<Movie> imageUrls;
+    private ArrayList<Movie> movies;
 
-    public ImageListAdapter(Context context, ArrayList<Movie> imageUrls) {
-        super(context, R.layout.grid_item_layout, imageUrls);
+    public ImageListAdapter(Context context, ArrayList<Movie> movies) {
+        super(context, R.layout.grid_item_layout, movies);
 
         this.context = context;
-        this.imageUrls = imageUrls;
+        this.movies = movies;
 
         inflater = LayoutInflater.from(context);
     }
@@ -29,12 +29,12 @@ public class ImageListAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (null == convertView) {
-            convertView = inflater.inflate(R.layout.grid_item_layout, parent, false);
+            convertView = inflater.inflate(R.layout.grid_item_layout,parent,false);
         }
 
         Picasso
                 .with(context)
-                .load("http://image.tmdb.org/t/p/w185/"+imageUrls.get(position).posterPath)
+                .load("http://image.tmdb.org/t/p/w185/"+movies.get(position).posterPath)
                 .placeholder(R.mipmap.ic_launcher)
                 .fit() // will explain later
                 .into((ImageView) convertView);

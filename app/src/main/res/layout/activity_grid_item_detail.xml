@@ -20,76 +20,74 @@
             android:layout_height="300dp"
             android:paddingRight="24dp" />
 
-
-
         <TextView
             android:id="@+id/movieName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/poster"
-            android:paddingTop="18sp"
+            android:layout_marginTop="20dp"
             android:text="Movie Title"
+            android:textAllCaps="true"
             android:textColor="@android:color/white"
             android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            />
+
         <TextView
             android:id="@+id/releaseDateTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/poster"
-            android:paddingTop="50dp"
             android:text="Release Date"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"
-            />
+            style="@style/title"
+         />
+
         <TextView
             android:id="@+id/releaseDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/releaseDateTitle"
             android:layout_toRightOf="@id/poster"
-            android:paddingTop="5sp"
             android:text="release date"
-            android:textColor="@android:color/white" />
+            style="@style/info"
+            />
 
         <TextView
             android:id="@+id/ratingsTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/poster"
             android:layout_below="@id/releaseDate"
-            android:paddingTop="30dp"
+            android:layout_toRightOf="@id/poster"
             android:text="Rating"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"
-            />
+            style="@style/title"
+          />
+
         <TextView
             android:id="@+id/ratings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/ratingsTitle"
             android:layout_toRightOf="@id/poster"
-            android:paddingTop="5sp"
             android:text="rating"
-            android:textColor="@android:color/white" />
+            style="@style/info"
+             />
 
         <TextView
+            android:id="@+id/overviewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Overview"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"
             android:layout_below="@id/movieName"
-            android:id="@+id/overviewTitle"
-            android:paddingTop="20sp"/>
+            android:text="Overview"
+            style="@style/title"
+          />
 
         <TextView
             android:id="@+id/overview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/overviewTitle"
-            android:paddingTop="5sp"
             android:text="Details about the movie"
-            android:textColor="@android:color/white" />
+            style="@style/info"
+         />
     </RelativeLayout>
 </ScrollView>
